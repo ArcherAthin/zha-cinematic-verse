@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface AdminContextType {
@@ -26,7 +27,32 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       videoUrl: "",
       logoUrl: ""
     },
-    referenceWorks: [],
+    referenceWorks: [
+      {
+        id: 1,
+        title: "Cinematic Vision",
+        thumbnail: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        id: 2,
+        title: "Visual Storytelling",
+        thumbnail: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        id: 3,
+        title: "Raw Emotions",
+        thumbnail: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        id: 4,
+        title: "Cultural Depth",
+        thumbnail: "https://images.unsplash.com/photo-1518877593221-1f28583780b4?w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      }
+    ],
     ideologies: [
       "Visual storytelling that transcends boundaries",
       "Authentic narratives rooted in culture", 

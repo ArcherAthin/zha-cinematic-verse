@@ -42,8 +42,14 @@ const HeroSection = () => {
       {/* Background overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10" />
       
-      {/* Background ambient effect */}
-      <div className="absolute inset-0 bg-gradient-radial from-red-900/20 to-transparent" />
+      {/* Red pulse pattern background */}
+      <div className="absolute inset-0 z-5">
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-red-500 rounded-full animate-ping opacity-30"></div>
+        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-red-400 rounded-full animate-ping opacity-40" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-red-600 rounded-full animate-ping opacity-25" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 right-1/4 w-1 h-1 bg-red-500 rounded-full animate-ping opacity-35" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-1/3 right-1/2 w-2 h-2 bg-red-400 rounded-full animate-ping opacity-30" style={{ animationDelay: '1.5s' }}></div>
+      </div>
 
       {/* Video player */}
       {isPlaying && contentData.hero.videoUrl && (
@@ -79,14 +85,13 @@ const HeroSection = () => {
       {!isPlaying && (
         <div className="relative z-30 text-center">
           <div className="bg-black/20 backdrop-blur-sm border border-white/10 rounded-xl p-12 max-w-2xl mx-auto shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-105">
-            {/* Logo placeholder */}
+            {/* Logo */}
             <div className="mb-8">
-              <h1 className="text-6xl md:text-8xl font-bold tracking-wider text-white">
-                ZHA
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-300 tracking-widest">
-                PRODUCTIONS
-              </p>
+              <img 
+                src="/lovable-uploads/bdc796a1-477c-4a1f-9c36-d246afd7f7d4.png" 
+                alt="ZHA Productions" 
+                className="mx-auto max-w-md w-full h-auto"
+              />
             </div>
             
             {/* Tagline */}
@@ -101,7 +106,7 @@ const HeroSection = () => {
               disabled={!contentData.hero.videoUrl}
             >
               <Play className="h-6 w-6 fill-current" />
-              <span className="text-lg font-semibold">PLAY REEL</span>
+              <span className="text-lg font-semibold">PLAY</span>
             </button>
           </div>
         </div>
