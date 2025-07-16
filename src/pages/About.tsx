@@ -55,8 +55,13 @@ const About = () => {
     <div className="min-h-screen bg-black pt-20">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-12 text-center tracking-wider">
-          MEET THE TEAM
+          {contentData.about.title}
         </h1>
+        {contentData.about.subtitle && (
+          <p className="text-xl text-gray-300 mb-12 text-center max-w-2xl mx-auto">
+            {contentData.about.subtitle}
+          </p>
+        )}
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {team.map((member: any) => (

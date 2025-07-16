@@ -7,6 +7,8 @@ interface AdminContextType {
   logout: () => void;
   contentData: any;
   updateContent: (section: string, data: any) => void;
+  addContactMessage: (message: any) => void;
+  saveAllContent: () => void;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
@@ -84,7 +86,12 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     contact: {
       email: "info@zhaproductions.com",
       phone: "+1 (555) 123-4567"
-    }
+    },
+    about: {
+      title: "MEET THE TEAM",
+      subtitle: "Passionate professionals dedicated to cinematic excellence"
+    },
+    contactMessages: []
   });
 
   const login = (password: string) => {
@@ -106,13 +113,28 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }));
   };
 
+  const addContactMessage = (message: any) => {
+    setContentData(prev => ({
+      ...prev,
+      contactMessages: [...prev.contactMessages, { ...message, id: Date.now(), timestamp: new Date() }]
+    }));
+  };
+
+  const saveAllContent = () => {
+    // In a real app, this would save to a database
+    localStorage.setItem('zha_content', JSON.stringify(contentData));
+    alert('All content saved successfully!');
+  };
+
   return (
     <AdminContext.Provider value={{
       isLoggedIn,
       login,
       logout,
       contentData,
-      updateContent
+      updateContent,
+      addContactMessage,
+      saveAllContent
     }}>
       {children}
     </AdminContext.Provider>

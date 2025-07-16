@@ -84,13 +84,13 @@ const HeroSection = () => {
       {/* Main content card */}
       {!isPlaying && (
         <div className="relative z-30 text-center">
-          <div className="bg-black/20 backdrop-blur-sm border border-white/10 rounded-xl p-12 max-w-2xl mx-auto shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-105">
+          <div className="bg-black/20 backdrop-blur-sm border border-white/10 rounded-xl p-12 max-w-xl mx-auto shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-105 aspect-square flex flex-col justify-center">
             {/* Logo */}
             <div className="mb-8">
               <img 
                 src="/lovable-uploads/bdc796a1-477c-4a1f-9c36-d246afd7f7d4.png" 
                 alt="ZHA Productions" 
-                className="mx-auto max-w-md w-full h-auto"
+                className="mx-auto max-w-sm w-full h-auto"
               />
             </div>
             

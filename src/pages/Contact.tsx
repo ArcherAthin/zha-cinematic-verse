@@ -13,11 +13,16 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { contentData } = useAdmin();
+  
+
+  const { contentData, addContactMessage } = useAdmin();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
+    // Add message to admin context
+    addContactMessage(formData);
     
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 2000));

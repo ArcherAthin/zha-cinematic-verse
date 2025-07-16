@@ -3,7 +3,7 @@ import { useAdmin } from '../contexts/AdminContext';
 import { Eye, EyeOff, Save, Plus, Trash2, Upload, Edit, Move } from 'lucide-react';
 
 const AdminDashboard = () => {
-  const { isLoggedIn, login, logout, contentData, updateContent } = useAdmin();
+  const { isLoggedIn, login, logout, contentData, updateContent, saveAllContent } = useAdmin();
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState('hero');
@@ -128,8 +128,10 @@ const AdminDashboard = () => {
     { id: 'ideologies', label: 'Ideologies' },
     { id: 'faqs', label: 'FAQs' },
     { id: 'services', label: 'Services' },
+    { id: 'about', label: 'About' },
     { id: 'team', label: 'Team' },
-    { id: 'contact', label: 'Contact' }
+    { id: 'contact', label: 'Contact' },
+    { id: 'messages', label: 'Messages' }
   ];
 
   return (
@@ -137,12 +139,21 @@ const AdminDashboard = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-white">Admin Dashboard</h1>
-          <button
-            onClick={logout}
-            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
-          >
-            Logout
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={saveAllContent}
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+            >
+              <Save className="h-4 w-4" />
+              Save All
+            </button>
+            <button
+              onClick={logout}
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Tab Navigation */}
@@ -410,8 +421,241 @@ const AdminDashboard = () => {
             </div>
           )}
 
+          {activeTab === 'services' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Services Content</h2>
+              
+              <div>
+                <label className="block text-white font-semibold mb-2">Services Video URL</label>
+                <input
+                  type="text"
+                  value={contentData.services.videoUrl}
+                  onChange={(e) => updateContent('services', { ...contentData.services, videoUrl: e.target.value })}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-red-500"
+                  placeholder="Enter YouTube embed URL or video path"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-white font-semibold mb-2">Service Insights</label>
+                {contentData.services.insights.map((insight: string, index: number) => (
+                  <div key={index} className="flex gap-4 mb-2">
+                    <input
+                      type="text"
+                      value={insight}
+                      onChange={(e) => {
+                        const newInsights = [...contentData.services.insights];
+                        newInsights[index] = e.target.value;
+                        updateContent('services', { ...contentData.services, insights: newInsights });
+                      }}
+                      className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded text-white focus:outline-none focus:border-red-500"
+                    />
+                    <button
+                      onClick={() => {
+                        const newInsights = contentData.services.insights.filter((_: any, i: number) => i !== index);
+                        updateContent('services', { ...contentData.services, insights: newInsights });
+                      }}
+                      className="text-red-500 hover:text-red-400 p-2"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                ))}
+                <button
+                  onClick={() => {
+                    const newInsights = [...contentData.services.insights, "New Service"];
+                    updateContent('services', { ...contentData.services, insights: newInsights });
+                  }}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  <Plus className="h-4 w-4" />
+                  Add Service
+                </button>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'about' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">About Page Content</h2>
+              
+              <div>
+                <label className="block text-white font-semibold mb-2">Page Title</label>
+                <input
+                  type="text"
+                  value={contentData.about.title}
+                  onChange={(e) => updateContent('about', { ...contentData.about, title: e.target.value })}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-white font-semibold mb-2">Subtitle</label>
+                <input
+                  type="text"
+                  value={contentData.about.subtitle}
+                  onChange={(e) => updateContent('about', { ...contentData.about, subtitle: e.target.value })}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'team' && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Team Management</h2>
+                <button
+                  onClick={() => {
+                    const newMember = {
+                      id: Date.now(),
+                      name: "New Member",
+                      title: "NEW ROLE",
+                      bio: "Bio description here...",
+                      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
+                    };
+                    updateContent('team', [...contentData.team, newMember]);
+                  }}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  <Plus className="h-5 w-5" />
+                  Add Member
+                </button>
+              </div>
+              
+              <div className="grid gap-6">
+                {contentData.team.map((member: any) => (
+                  <div key={member.id} className="bg-gray-800 p-4 rounded-lg">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-white font-semibold mb-2">Name</label>
+                        <input
+                          type="text"
+                          value={member.name}
+                          onChange={(e) => {
+                            const updated = contentData.team.map((m: any) => 
+                              m.id === member.id ? { ...m, name: e.target.value } : m
+                            );
+                            updateContent('team', updated);
+                          }}
+                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-red-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-white font-semibold mb-2">Title</label>
+                        <input
+                          type="text"
+                          value={member.title}
+                          onChange={(e) => {
+                            const updated = contentData.team.map((m: any) => 
+                              m.id === member.id ? { ...m, title: e.target.value } : m
+                            );
+                            updateContent('team', updated);
+                          }}
+                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-red-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-white font-semibold mb-2">Image URL</label>
+                        <input
+                          type="text"
+                          value={member.image}
+                          onChange={(e) => {
+                            const updated = contentData.team.map((m: any) => 
+                              m.id === member.id ? { ...m, image: e.target.value } : m
+                            );
+                            updateContent('team', updated);
+                          }}
+                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-red-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-white font-semibold mb-2">Bio</label>
+                        <textarea
+                          value={member.bio}
+                          onChange={(e) => {
+                            const updated = contentData.team.map((m: any) => 
+                              m.id === member.id ? { ...m, bio: e.target.value } : m
+                            );
+                            updateContent('team', updated);
+                          }}
+                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-red-500"
+                          rows={3}
+                        />
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        const filtered = contentData.team.filter((m: any) => m.id !== member.id);
+                        updateContent('team', filtered);
+                      }}
+                      className="mt-4 text-red-500 hover:text-red-400 flex items-center gap-1"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'contact' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Contact Information</h2>
+              
+              <div>
+                <label className="block text-white font-semibold mb-2">Email</label>
+                <input
+                  type="email"
+                  value={contentData.contact.email}
+                  onChange={(e) => updateContent('contact', { ...contentData.contact, email: e.target.value })}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-white font-semibold mb-2">Phone</label>
+                <input
+                  type="text"
+                  value={contentData.contact.phone}
+                  onChange={(e) => updateContent('contact', { ...contentData.contact, phone: e.target.value })}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'messages' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Contact Messages</h2>
+              
+              {contentData.contactMessages.length === 0 ? (
+                <p className="text-gray-400">No messages yet.</p>
+              ) : (
+                <div className="space-y-4">
+                  {contentData.contactMessages.map((message: any) => (
+                    <div key={message.id} className="bg-gray-800 p-4 rounded-lg">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-white font-semibold">{message.name}</h3>
+                        <span className="text-gray-400 text-sm">
+                          {new Date(message.timestamp).toLocaleString()}
+                        </span>
+                      </div>
+                      <p className="text-gray-300 mb-2">{message.email}</p>
+                      {message.phone && (
+                        <p className="text-gray-300 mb-2">{message.phone}</p>
+                      )}
+                      <p className="text-white">{message.message}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Other tabs placeholder */}
-          {!['hero', 'referenceWorks', 'works', 'ideologies', 'faqs'].includes(activeTab) && (
+          {!['hero', 'referenceWorks', 'works', 'ideologies', 'faqs', 'services', 'about', 'team', 'contact', 'messages'].includes(activeTab) && (
             <div className="text-center py-12">
               <p className="text-gray-400 text-lg">
                 {tabs.find(t => t.id === activeTab)?.label} management panel coming soon...
