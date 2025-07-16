@@ -12,10 +12,11 @@ const BrandingIdeologies = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in');
+            entry.target.classList.remove('opacity-0', 'translate-y-10');
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.3, rootMargin: '0px 0px -100px 0px' }
     );
 
     const elements = sectionRef.current?.querySelectorAll('.ideology-item');
@@ -35,9 +36,9 @@ const BrandingIdeologies = () => {
           {contentData.ideologies.map((ideology: string, index: number) => (
             <div
               key={index}
-              className="ideology-item opacity-0 transform translate-y-10 transition-all duration-1000"
+              className="ideology-item opacity-0 transform translate-y-10 transition-all duration-1000 ease-out"
             >
-              <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white text-center leading-tight tracking-wide">
+              <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white text-center leading-tight tracking-wide px-4">
                 {ideology}
               </h3>
             </div>

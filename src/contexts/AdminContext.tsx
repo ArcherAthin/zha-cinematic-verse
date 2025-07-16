@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface AdminContextType {
@@ -30,7 +29,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     referenceWorks: [],
     ideologies: [
       "Visual storytelling that transcends boundaries",
-      "Authentic narratives rooted in culture",
+      "Authentic narratives rooted in culture", 
       "Cinematic excellence without compromise",
       "Innovation in every frame"
     ],
@@ -63,7 +62,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   });
 
   const login = (password: string) => {
-    if (password === "zha2024") {
+    if (password === "Admin@Zha") {
       setIsLoggedIn(true);
       return true;
     }
