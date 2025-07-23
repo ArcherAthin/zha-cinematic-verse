@@ -24,9 +24,9 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src="/lovable-uploads/61ab4719-b547-46fa-b35f-ce240c10cdad.png" 
+              src="/lovable-uploads/c93cc5c8-daae-40fb-b82b-2fb11fb90229.png" 
               alt="ZHA Productions" 
-              className="h-10 w-auto"
+              className="h-12 w-auto max-w-[120px] object-contain"
             />
           </Link>
 

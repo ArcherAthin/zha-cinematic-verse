@@ -23,7 +23,9 @@ export const useAdmin = () => {
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [contentData, setContentData] = useState({
+  const [contentData, setContentData] = useState(() => {
+    const saved = localStorage.getItem('zha_content');
+    return saved ? JSON.parse(saved) : {
     hero: {
       tagline: "Raw. Real. Relentless.",
       videoUrl: "",
@@ -92,7 +94,14 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       subtitle: "Passionate professionals dedicated to cinematic excellence"
     },
     contactMessages: []
-  });
+  }});
+
+  useEffect(() => {
+    const saved = localStorage.getItem('zha_content');
+    if (saved) {
+      setContentData(JSON.parse(saved));
+    }
+  }, []);
 
   const login = (password: string) => {
     if (password === "Admin@Zha") {
@@ -121,8 +130,9 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const saveAllContent = () => {
-    // In a real app, this would save to a database
     localStorage.setItem('zha_content', JSON.stringify(contentData));
+    // Force a re-render by updating the state
+    setContentData(prev => ({ ...prev }));
     alert('All content saved successfully!');
   };
 

@@ -100,14 +100,15 @@ const HeroSection = () => {
             </p>
             
             {/* Play button */}
-            <button
-              onClick={handlePlayClick}
-              className="group relative bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full flex items-center gap-3 mx-auto transition-all duration-300 hover:scale-110"
-              disabled={!contentData.hero.videoUrl}
-            >
-              <Play className="h-6 w-6 fill-current" />
-              <span className="text-lg font-semibold">PLAY</span>
-            </button>
+            {contentData.hero.videoUrl && (
+              <button
+                onClick={handlePlayClick}
+                className="group relative bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full flex items-center gap-3 mx-auto transition-all duration-300 hover:scale-110"
+              >
+                <Play className="h-6 w-6 fill-current" />
+                <span className="text-lg font-semibold">PLAY</span>
+              </button>
+            )}
           </div>
         </div>
       )}
