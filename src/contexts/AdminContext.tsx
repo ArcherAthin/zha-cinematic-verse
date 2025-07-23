@@ -29,6 +29,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     hero: {
       tagline: "Raw. Real. Relentless.",
       videoUrl: "",
+      backgroundVideoUrl: "",
       logoUrl: ""
     },
     referenceWorks: [

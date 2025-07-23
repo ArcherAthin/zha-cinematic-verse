@@ -203,12 +203,23 @@ const AdminDashboard = () => {
               </div>
               
               <div>
-                <label className="block text-white font-semibold mb-2">Video URL (Alternative)</label>
+                <label className="block text-white font-semibold mb-2">Main Video URL (for Play button)</label>
                 <input
                   type="text"
                   value={contentData.hero.videoUrl}
                   onChange={(e) => updateContent('hero', { ...contentData.hero, videoUrl: e.target.value })}
                   placeholder="Enter video URL or file path"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-white font-semibold mb-2">Background Video URL</label>
+                <input
+                  type="text"
+                  value={contentData.hero.backgroundVideoUrl || ''}
+                  onChange={(e) => updateContent('hero', { ...contentData.hero, backgroundVideoUrl: e.target.value })}
+                  placeholder="Enter background video URL"
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-red-500"
                 />
               </div>

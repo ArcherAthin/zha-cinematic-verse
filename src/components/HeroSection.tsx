@@ -1,4 +1,3 @@
-
 import { useState, useRef } from 'react';
 import { Play, X, Pause } from 'lucide-react';
 import { useAdmin } from '../contexts/AdminContext';
@@ -39,6 +38,21 @@ const HeroSection = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
+      {/* Background Video */}
+      {contentData.hero.backgroundVideoUrl && (
+        <div className="absolute inset-0 z-0">
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={contentData.hero.backgroundVideoUrl} type="video/mp4" />
+          </video>
+        </div>
+      )}
+      
       {/* Background overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10" />
       
@@ -81,10 +95,10 @@ const HeroSection = () => {
         </div>
       )}
 
-      {/* Main content card */}
+      {/* Main content card with translucent overlay */}
       {!isPlaying && (
         <div className="relative z-30 text-center">
-          <div className="bg-black/20 backdrop-blur-sm border border-white/10 rounded-xl p-12 max-w-xl mx-auto shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-105 aspect-square flex flex-col justify-center">
+          <div className="bg-black/30 backdrop-blur-md border border-white/20 rounded-2xl p-12 max-w-xl mx-auto shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-105 aspect-square flex flex-col justify-center">
             {/* Logo */}
             <div className="mb-8">
               <img 
