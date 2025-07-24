@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Play, X, Pause } from 'lucide-react';
 import { useAdmin } from '../contexts/AdminContext';
+import { Html } from './ui/hero-futuristic';
 
 const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -37,37 +38,15 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
-      {/* Background Video */}
-      {contentData.hero.backgroundVideoUrl && (
-        <div className="absolute inset-0 z-0">
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-          >
-            <source src={contentData.hero.backgroundVideoUrl} type="video/mp4" />
-          </video>
-        </div>
-      )}
-      
-      {/* Background overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10" />
-      
-      {/* Red pulse pattern background */}
-      <div className="absolute inset-0 z-5">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-red-500 rounded-full animate-ping opacity-30"></div>
-        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-red-400 rounded-full animate-ping opacity-40" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-red-600 rounded-full animate-ping opacity-25" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 right-1/4 w-1 h-1 bg-red-500 rounded-full animate-ping opacity-35" style={{ animationDelay: '0.5s' }}></div>
-        <div className="absolute bottom-1/3 right-1/2 w-2 h-2 bg-red-400 rounded-full animate-ping opacity-30" style={{ animationDelay: '1.5s' }}></div>
+    <section className="relative h-screen overflow-hidden">
+      {/* Futuristic Background */}
+      <div className="absolute inset-0 z-0">
+        <Html />
       </div>
 
       {/* Video player */}
       {isPlaying && contentData.hero.videoUrl && (
-        <div className="absolute inset-0 z-20">
+        <div className="absolute inset-0 z-50">
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -95,21 +74,21 @@ const HeroSection = () => {
         </div>
       )}
 
-      {/* Main content card with translucent overlay */}
+      {/* Translucent overlay with logo and play button */}
       {!isPlaying && (
-        <div className="relative z-30 text-center">
-          <div className="bg-black/30 backdrop-blur-md border border-white/20 rounded-2xl p-12 max-w-xl mx-auto shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-105 aspect-square flex flex-col justify-center">
+        <div className="absolute inset-0 z-40 flex items-center justify-center">
+          <div className="bg-black/20 backdrop-blur-lg border border-white/10 rounded-3xl p-12 max-w-md mx-auto shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-105 aspect-square flex flex-col justify-center">
             {/* Logo */}
             <div className="mb-8">
               <img 
-                src="/lovable-uploads/bdc796a1-477c-4a1f-9c36-d246afd7f7d4.png" 
+                src="/lovable-uploads/c93cc5c8-daae-40fb-b82b-2fb11fb90229.png" 
                 alt="ZHA Productions" 
-                className="mx-auto max-w-sm w-full h-auto"
+                className="mx-auto max-w-48 w-full h-auto"
               />
             </div>
             
             {/* Tagline */}
-            <p className="text-2xl md:text-3xl font-bold text-red-500 mb-8 tracking-wider">
+            <p className="text-xl md:text-2xl font-bold text-red-500 mb-8 tracking-wider text-center">
               {contentData.hero.tagline}
             </p>
             
