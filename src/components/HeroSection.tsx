@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import { Play, X, Pause } from 'lucide-react';
 import { useAdmin } from '../contexts/AdminContext';
-import { Html } from './ui/hero-futuristic';
 
 const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -38,57 +37,55 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* Futuristic Background */}
-      <div className="absolute inset-0 z-0">
-        <Html />
-      </div>
-
-      {/* Video player */}
+    <section className="relative h-screen bg-black overflow-hidden">
+      {/* Video player overlay */}
       {isPlaying && contentData.hero.videoUrl && (
-        <div className="absolute inset-0 z-50">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            controls={false}
-            onEnded={handleCloseVideo}
-          >
-            <source src={contentData.hero.videoUrl} type="video/mp4" />
-          </video>
-          
-          {/* Video controls */}
-          <div className="absolute top-6 right-6 flex gap-4">
-            <button
-              onClick={handlePauseToggle}
-              className="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all"
+        <div className="absolute inset-0 z-40 bg-black/80 flex items-center justify-center">
+          <div className="relative w-full max-w-4xl mx-4">
+            <video
+              ref={videoRef}
+              className="w-full h-auto max-h-[80vh] rounded-lg"
+              controls={false}
+              onEnded={handleCloseVideo}
             >
-              {isPaused ? <Play className="h-6 w-6" /> : <Pause className="h-6 w-6" />}
-            </button>
-            <button
-              onClick={handleCloseVideo}
-              className="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all"
-            >
-              <X className="h-6 w-6" />
-            </button>
+              <source src={contentData.hero.videoUrl} type="video/mp4" />
+            </video>
+            
+            {/* Video controls */}
+            <div className="absolute top-4 right-4 flex gap-3">
+              <button
+                onClick={handlePauseToggle}
+                className="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all"
+              >
+                {isPaused ? <Play className="h-5 w-5" /> : <Pause className="h-5 w-5" />}
+              </button>
+              <button
+                onClick={handleCloseVideo}
+                className="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Translucent overlay with logo and play button */}
-      {!isPlaying && (
-        <div className="absolute inset-0 z-40 flex items-center justify-center">
-          <div className="bg-black/20 backdrop-blur-lg border border-white/10 rounded-3xl p-12 max-w-md mx-auto shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-105 aspect-square flex flex-col justify-center">
+      {/* Glass morphic panel */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative">
+          {/* Glass morphic square panel */}
+          <div className="w-80 h-80 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl shadow-2xl flex flex-col items-center justify-center p-8 hover:bg-white/15 transition-all duration-300">
             {/* Logo */}
             <div className="mb-8">
               <img 
                 src="/lovable-uploads/c93cc5c8-daae-40fb-b82b-2fb11fb90229.png" 
                 alt="ZHA Productions" 
-                className="mx-auto max-w-48 w-full h-auto"
+                className="w-32 h-auto"
               />
             </div>
             
             {/* Tagline */}
-            <p className="text-xl md:text-2xl font-bold text-red-500 mb-8 tracking-wider text-center">
+            <p className="text-xl font-bold text-white mb-8 text-center tracking-wide">
               {contentData.hero.tagline}
             </p>
             
@@ -96,15 +93,15 @@ const HeroSection = () => {
             {contentData.hero.videoUrl && (
               <button
                 onClick={handlePlayClick}
-                className="group relative bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full flex items-center gap-3 mx-auto transition-all duration-300 hover:scale-110"
+                className="group bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 shadow-lg"
               >
-                <Play className="h-6 w-6 fill-current" />
-                <span className="text-lg font-semibold">PLAY</span>
+                <Play className="h-5 w-5 fill-current" />
+                <span className="font-semibold">WATCH REEL</span>
               </button>
             )}
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 };

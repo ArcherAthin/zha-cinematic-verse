@@ -28,9 +28,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return saved ? JSON.parse(saved) : {
     hero: {
       tagline: "Raw. Real. Relentless.",
-      videoUrl: "",
-      backgroundVideoUrl: "",
-      logoUrl: ""
+      videoUrl: ""
     },
     referenceWorks: [
       {
